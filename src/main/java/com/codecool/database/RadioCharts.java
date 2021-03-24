@@ -47,10 +47,7 @@ public class RadioCharts <T> {
             ResultSet results = statement.executeQuery(SQL);
             while (results.next()) {
                 int currentSongCount = results.getInt("song_count");
-                if ((currentSongCount == mostPlayedSongCount) && mostPlayedArtist.equals("")) {
-                    mostPlayedSongCount = currentSongCount;
-                    mostPlayedArtist = results.getString("artist");
-                } else if ((currentSongCount > mostPlayedSongCount)) {
+                if ((currentSongCount > mostPlayedSongCount) || ((currentSongCount == mostPlayedSongCount) && mostPlayedArtist.equals(""))) {
                     mostPlayedSongCount = currentSongCount;
                     mostPlayedArtist = results.getString("artist");
                 }
