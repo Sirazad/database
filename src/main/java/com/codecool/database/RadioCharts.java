@@ -17,7 +17,7 @@ public class RadioCharts <T> {
         String mostPlayedSong = "";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String SQL = "SELECT song, SUM(times_aired) as times_aired FROM music_broadcast GROUP BY song";
+            String SQL = "SELECT artist, song, SUM(times_aired) as times_aired FROM music_broadcast GROUP BY artist";
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(SQL);
 
