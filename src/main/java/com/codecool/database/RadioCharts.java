@@ -20,17 +20,16 @@ public class RadioCharts <T> {
             String SQL = "SELECT artist, song, SUM(times_aired) as times_aired FROM music_broadcast GROUP BY artist";
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(SQL);
-
-            int mostPlayed = 0;
+            int mostPlayedCount = 0;
 
             while (results.next()) {
-                int currentPlayed = results.getInt("times_aired");
-                if ((currentPlayed > mostPlayed) || ((currentPlayed == mostPlayed) && mostPlayedSong.equals(""))) {
-                    mostPlayed = currentPlayed;
+                int currentPlayedCount = results.getInt("times_aired");
+                if ((currentPlayedCount > mostPlayedCount)
+                        || ((currentPlayedCount == mostPlayedCount) && mostPlayedSong.equals(""))) {
+                    mostPlayedCount = currentPlayedCount;
                     mostPlayedSong = results.getString("song");
                 }
             }
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -45,9 +44,11 @@ public class RadioCharts <T> {
             String SQL = "SELECT artist, COUNT(DISTINCT song) as song_count FROM music_broadcast GROUP BY artist";
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(SQL);
+
             while (results.next()) {
                 int currentSongCount = results.getInt("song_count");
-                if ((currentSongCount > mostPlayedSongCount) || ((currentSongCount == mostPlayedSongCount) && mostPlayedArtist.equals(""))) {
+                if ((currentSongCount > mostPlayedSongCount)
+                        || ((currentSongCount == mostPlayedSongCount) && mostPlayedArtist.equals(""))) {
                     mostPlayedSongCount = currentSongCount;
                     mostPlayedArtist = results.getString("artist");
                 }
