@@ -42,7 +42,7 @@ public class RadioCharts <T> {
         int mostPlayedSongCount = 0;
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String SQL = "SELECT artist, COUNT(song) as song_count FROM music_broadcast GROUP BY artist";
+            String SQL = "SELECT artist, COUNT(DISTINCT song) as song_count FROM music_broadcast GROUP BY artist";
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(SQL);
             while (results.next()) {
